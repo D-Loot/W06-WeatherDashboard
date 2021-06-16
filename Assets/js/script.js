@@ -100,7 +100,7 @@ function createCurrentWeatherSection(){
 
 function getFutureWeatherSection(){
     var futureWeatherDiv = document.createElement("section")
-    futureWeatherDiv.className = "text-center row border justify-content-around m-4"
+    futureWeatherDiv.className = "text-center row border justify-content-around m-1 futureWeather"
     futureWeatherDiv.setAttribute("id", "futureWeatherDisplay")
 
 // TODO: this function adds a weather section to the Weather Div and gives an id of 1 (later used to create day1) to each item
@@ -127,7 +127,7 @@ function getWeatherDivSection(originalCodeContainer,dayNum){
 
     var divSection = document.createElement("section");
 
-    divSection.className = "m-2"
+    divSection.className = "p-2 border border-white border-rounded"
 
     var pCity = document.createElement('p');
     pCity.className = `align-self-left`
