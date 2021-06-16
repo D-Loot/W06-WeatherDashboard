@@ -119,10 +119,11 @@ function getWeatherDivSection(originalCodeContainer,dayNum){
 
 // TODO - GLOBAL VARIABLE
     const cityName = selectedCity;
-    const timeID = "timeIdDay"+dayNum
-    const tempID = "tempIdDay"+dayNum
-    const humidityID = "humidityIdDay"+dayNum
-    const uvIndexID = "uvIndexID"+dayNum
+    const timeID = "timeIdDay"+dayNum;
+    const weatherIcon = "weatherIcon"+dayNum;
+    const tempID = "tempIdDay"+dayNum;
+    const humidityID = "humidityIdDay"+dayNum;
+    const uvIndexID = "uvIndexID"+dayNum;
 
     var divSection = document.createElement("section");
 
@@ -139,8 +140,6 @@ function getWeatherDivSection(originalCodeContainer,dayNum){
 
     var pTemp = document.createElement('p');
     pTemp.className = `align-self-left ${tempID}`
-    // Text to be added later
-    // pTemp.innerText = temperature2
     divSection.append(pTemp)
 
     var pHumidity = document.createElement('p');
@@ -188,18 +187,52 @@ function getWeatherInfo(){
             // console.log(data);
 
     // TODO: log all temp data
-            // console.log(secondData);
+            console.log(secondData);
             for (i = 0; i < 5; i++){
                 if (i == 0){
-                    // addText(`tempIdDayCurrent`, secondData.current.temp)
-                    document.querySelector(`.tempIdDayCurrent`).innerText = `Temp: ${(((secondData.current.temp-273.15)*1.8)+32).toFixed(2)}\xB0`
-                    // console.log(secondData.current.temp)
-                    // addText(`humidityIdDayCurrent`, secondData.current.humidity)
-
 // https://coderrocketfuel.com/article/convert-a-unix-timestamp-to-a-date-in-vanilla-javascript
                     const dateTime = new Date(secondData.current.dt * 1000)
 
                     document.querySelector(`.timeIdDayCurrent`).innerText = `Date: ${dateTime.toLocaleString("en-US", {month: "long"})} ${dateTime.toLocaleString("en-US", {day: "numeric"})}, ${dateTime.toLocaleString("en-US", {year: "numeric"})}`
+
+
+                    // addText(`tempIdDayCurrent`, secondData.current.temp)
+                    document.querySelector(`.tempIdDayCurrent`).innerText = `Temp: ${(((secondData.current.temp-273.15)*1.8)+32).toFixed(2)}\xB0 `
+                    // console.log(secondData.current.temp)
+                    // addText(`humidityIdDayCurrent`, secondData.current.humidity)
+
+// TODO WEATHER ICON --------------------------------------------------------
+// REF:  https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
+                    console.log(secondData.current.weather[0].id == 800)
+                        if (secondData.current.weather[0].id < 233){
+                            var pc = "🌩️"; // 🌩️ THUNDERSTORM
+                        } else if (secondData.current.weather[0].id < 322){
+                            var pc = "🌦️";  // 🌦️ Drizzle
+                        } else if (secondData.current.weather[0].id < 505){
+                            var pc = "🌧️"; // 🌧️ SHOWER RAIN
+                        } else if (secondData.current.weather[0].id < 512){
+                            var pc = "❄️"; // ❄️ SNOW
+                        } else if (secondData.current.weather[0].id < 532){
+                            var pc = "🌨️"; // 🌨️ RAIN
+                        } else if (secondData.current.weather[0].id < 623){
+                            var pc = "❄️"; // SNOW
+                        } else if (secondData.current.weather[0].id < 782){
+                            var pc = "🌫️"; // 🌫️ MIST
+                        } else if (secondData.current.weather[0].id == 800){
+                            var pc = "🌞"; // 🌞 CLEAR
+                        } else if (secondData.current.weather[0].id == 801){
+                            var pc = "🌤️"; // 🌤️FEW CLOUDS
+                        } else if (secondData.current.weather[0].id == 802){
+                            var pc = "🌤️"; // 🌤️SCATTERED CLOUDS
+                        } else if (secondData.current.weather[0].id == 803){
+                            var pc = "🌥️"; // 🌥️BROKEN CLOUDS
+                        } else {
+                            var pc = "🌥️"; // 🌥️OVERCAST CLOUDS
+                        }
+
+                    document.querySelector(`.tempIdDayCurrent`).append(pc)
+
+// TODO WEATHER ICON --------------------------------------------------------
 
                     document.querySelector(`.humidityIdDayCurrent`).innerText = `Humidity: ${secondData.current.humidity}`
                     // addText(`uvIndexIDCurrent`, secondData.current.uvi)
@@ -215,6 +248,39 @@ function getWeatherInfo(){
 
                     document.querySelector(`.tempIdDay${i}`).innerText = `Temp: ${(((secondData.daily[i].temp.day-273.15)*1.8)+32).toFixed(2)}\xB0`
                     // console.log(`.humidityIdDay${i}: ${secondData.daily[i].humidity}`)
+
+                    // TODO WEATHER ICON --------------------------------------------------------
+// REF:  https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
+console.log(secondData.daily[i].weather[0].id == 800)
+if (secondData.daily[i].weather[0].id < 233){
+    var pc = "🌩️"; // 🌩️ THUNDERSTORM
+} else if (secondData.daily[i].weather[0].id < 322){
+    var pc = "🌦️";  // 🌦️ Drizzle
+} else if (secondData.daily[i].weather[0].id < 505){
+    var pc = "🌧️"; // 🌧️ SHOWER RAIN
+} else if (secondData.daily[i].weather[0].id < 512){
+    var pc = "❄️"; // ❄️ SNOW
+} else if (secondData.daily[i].weather[0].id < 532){
+    var pc = "🌨️"; // 🌨️ RAIN
+} else if (secondData.daily[i].weather[0].id < 623){
+    var pc = "❄️"; // SNOW
+} else if (secondData.daily[i].weather[0].id < 782){
+    var pc = "🌫️"; // 🌫️ MIST
+} else if (secondData.daily[i].weather[0].id == 800){
+    var pc = "🌞"; // 🌞 CLEAR
+} else if (secondData.daily[i].weather[0].id == 801){
+    var pc = "🌤️"; // 🌤️FEW CLOUDS
+} else if (secondData.daily[i].weather[0].id == 802){
+    var pc = "🌤️"; // 🌤️SCATTERED CLOUDS
+} else if (secondData.daily[i].weather[0].id == 803){
+    var pc = "🌥️"; // 🌥️BROKEN CLOUDS
+} else {
+    var pc = "🌥️"; // 🌥️OVERCAST CLOUDS
+}
+
+document.querySelector(`.tempIdDay${i}`).append(pc)
+
+// TODO WEATHER ICON --------------------------------------------------------
                     document.querySelector(`.humidityIdDay${i}`).innerText = `Humidity: ${secondData.daily[i].humidity}`
                     // console.log(`.humidityIdDay${i}: ${secondData.daily[i].uvi}`)
                     document.querySelector(`.uvIndexID${i}`).innerText = `UVI: ${secondData.daily[i].uvi}`
