@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BootStrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Weather App</title>
+</head>
+<body>
+
+<!-- title -->
+    <h1 class="text-center">Weather Dashboard</h1>
+
+    <div id="contentSection" class="d-flex flex-wrap justify-content-around">
+        <section class="text-center col col-12 col-md-4">
+                <section class="text-center border-bottom">
+        <!-- subheader Select a City -->
+                <h2>Search for a City</h2>
+        <!-- Search Bar (With border line)-->
+                <div class="d-inline-flex flex-column">
+                        <input type="text" id="cityText" name="cityText" placeholder="St. Louis" class="w-1">
+        <!-- Search Button -->
+                        <button id="searchButton" class="w-50 align-self-center">SEARCH</button>
+                </div>
+                </section>
+                <section id="searchHistorySection" class="text-center d-inline-flex flex-column col-12 col-md-8">
+                </section>
+        </section>
+        </div>
+    <!-- Add New Section -->
+    <!-- Searched City (Current Date) (Weather Emoji)
+            Temp: *F
+            Wind: MPH
+            Humidity: # %
+            UV Index: (color background)-->
+
+    <!-- Searched City (Date +1) (Weather Emoji)
+            Temp: *F
+            Wind: MPH
+            Humidity: # %
+            UV Index: (color background)-->
+    <!-- Searched City (Date +2) (Weather Emoji)
+            Temp: *F
+            Wind: MPH
+            Humidity: # %
+            UV Index: (color background)-->
+    <!-- Searched City (Date +3) (Weather Emoji)
+            Temp: *F
+            Wind: MPH
+            Humidity: # %
+            UV Index: (color background)-->
+    <!-- Searched City (Date +4) (Weather Emoji)
+            Temp: *F
+            Wind: MPH
+            Humidity: # %
+            UV Index: (color background)-->
+    <!-- Searched City (Date +5) (Weather Emoji)
+            Temp: *F
+            Wind: MPH
+            Humidity: # %
+            UV Index: (color background)-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
