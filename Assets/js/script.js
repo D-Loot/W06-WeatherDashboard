@@ -94,7 +94,15 @@ function createCurrentWeatherSection(){
 
     getWeatherDivSection(contentSectionElement, "Current");
 
+    var futureWeatherTitle = document.createElement("p");
+    futureWeatherTitle.className = "text-center h3 m-1"
+    futureWeatherTitle.append(`5 Day Forecast`)
+
+    contentSectionElement.append(futureWeatherTitle)
+
     document.querySelector("#contentSection").append(contentSectionElement)
+
+
     getFutureWeatherSection();
 }
 
@@ -108,7 +116,7 @@ function getFutureWeatherSection(){
     getWeatherDivSection(futureWeatherDiv, 2)
     getWeatherDivSection(futureWeatherDiv, 3)
     getWeatherDivSection(futureWeatherDiv, 4)
-
+    getWeatherDivSection(futureWeatherDiv, 5)
     document.querySelector("#weatherDisplay").append(futureWeatherDiv)
 
 // TODO: Check that this works
@@ -122,6 +130,7 @@ function getWeatherDivSection(originalCodeContainer,dayNum){
     const timeID = "timeIdDay"+dayNum;
     const weatherIcon = "weatherIcon"+dayNum;
     const tempID = "tempIdDay"+dayNum;
+    const windID = "windIdDay"+dayNum;
     const humidityID = "humidityIdDay"+dayNum;
     const uvIndexID = "uvIndexID"+dayNum;
 
@@ -130,7 +139,7 @@ function getWeatherDivSection(originalCodeContainer,dayNum){
     divSection.className = "p-2 border border-white border-rounded"
 
     var pCity = document.createElement('p');
-    pCity.className = `align-self-left`
+    pCity.className = `align-self-left h2`
     pCity.innerText = cityName;
     divSection.append(pCity);
 
@@ -141,6 +150,12 @@ function getWeatherDivSection(originalCodeContainer,dayNum){
     var pTemp = document.createElement('p');
     pTemp.className = `align-self-left ${tempID}`
     divSection.append(pTemp)
+
+    var pWind = document.createElement('p');
+    pWind.className = `align-self-left ${windID}`
+    // Text to be added later
+    // pTemp.innerText = temperature2
+    divSection.append(pWind);
 
     var pHumidity = document.createElement('p');
     pHumidity.className = `align-self-left ${humidityID}`
@@ -187,8 +202,8 @@ function getWeatherInfo(){
             // console.log(data);
 
     // TODO: log all temp data
-            console.log(secondData);
-            for (i = 0; i < 5; i++){
+
+            for (i = 0; i < 6; i++){
                 if (i == 0){
 // https://coderrocketfuel.com/article/convert-a-unix-timestamp-to-a-date-in-vanilla-javascript
                     const dateTime = new Date(secondData.current.dt * 1000)
@@ -198,12 +213,10 @@ function getWeatherInfo(){
 
                     // addText(`tempIdDayCurrent`, secondData.current.temp)
                     document.querySelector(`.tempIdDayCurrent`).innerText = `Temp: ${(((secondData.current.temp-273.15)*1.8)+32).toFixed(2)}\xB0 `
-                    // console.log(secondData.current.temp)
                     // addText(`humidityIdDayCurrent`, secondData.current.humidity)
 
 // TODO WEATHER ICON --------------------------------------------------------
 // REF:  https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
-                    console.log(secondData.current.weather[0].id == 800)
                         if (secondData.current.weather[0].id < 233){
                             var pc = "🌩️"; // 🌩️ THUNDERSTORM
                         } else if (secondData.current.weather[0].id < 322){
@@ -234,9 +247,26 @@ function getWeatherInfo(){
 
 // TODO WEATHER ICON --------------------------------------------------------
 
+
+                    document.querySelector(`.windIdDayCurrent`).innerText = `Wind: ${secondData.current.wind_speed} MPH`
+
                     document.querySelector(`.humidityIdDayCurrent`).innerText = `Humidity: ${secondData.current.humidity}`
                     // addText(`uvIndexIDCurrent`, secondData.current.uvi)
                     document.querySelector(`.uvIndexIDCurrent`).innerText = `UVI: ${secondData.current.uvi}`
+
+                    document.querySelector(`.uvIndexIDCurrent`).innerText = `UVI: `
+
+                    var uviColor = document.createElement('a');
+                    uviColor.innerText = secondData.current.uvi
+                    if (secondData.current.uvi <= 6){
+                        uviColor.className = `p-1 bg-success text-white`
+                    } else if (secondData.current.uvi <= 8){
+                        uviColor.className = `p-1 bg-warning text-white`
+                    } else {
+                        uviColor.className = `p-1 bg-danger text-white`
+                    }
+
+                    document.querySelector(`.uvIndexIDCurrent`).append(uviColor)
                 } else {
                     // // addText(`tempIdDay${i}`, secondData.daily[1].temp.day)
                     // console.log(`.tempIdDay${i}: ${((secondData.daily[i].temp.day-273.15)*1.8)+32}\xB0`)
@@ -251,44 +281,54 @@ function getWeatherInfo(){
 
                     // TODO WEATHER ICON --------------------------------------------------------
 // REF:  https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
-console.log(secondData.daily[i].weather[0].id == 800)
-if (secondData.daily[i].weather[0].id < 233){
-    var pc = "🌩️"; // 🌩️ THUNDERSTORM
-} else if (secondData.daily[i].weather[0].id < 322){
-    var pc = "🌦️";  // 🌦️ Drizzle
-} else if (secondData.daily[i].weather[0].id < 505){
-    var pc = "🌧️"; // 🌧️ SHOWER RAIN
-} else if (secondData.daily[i].weather[0].id < 512){
-    var pc = "❄️"; // ❄️ SNOW
-} else if (secondData.daily[i].weather[0].id < 532){
-    var pc = "🌨️"; // 🌨️ RAIN
-} else if (secondData.daily[i].weather[0].id < 623){
-    var pc = "❄️"; // SNOW
-} else if (secondData.daily[i].weather[0].id < 782){
-    var pc = "🌫️"; // 🌫️ MIST
-} else if (secondData.daily[i].weather[0].id == 800){
-    var pc = "🌞"; // 🌞 CLEAR
-} else if (secondData.daily[i].weather[0].id == 801){
-    var pc = "🌤️"; // 🌤️FEW CLOUDS
-} else if (secondData.daily[i].weather[0].id == 802){
-    var pc = "🌤️"; // 🌤️SCATTERED CLOUDS
-} else if (secondData.daily[i].weather[0].id == 803){
-    var pc = "🌥️"; // 🌥️BROKEN CLOUDS
-} else {
-    var pc = "🌥️"; // 🌥️OVERCAST CLOUDS
-}
+                    if (secondData.daily[i].weather[0].id < 233){
+                        var pc = "🌩️"; // 🌩️ THUNDERSTORM
+                    } else if (secondData.daily[i].weather[0].id < 322){
+                        var pc = "🌦️";  // 🌦️ Drizzle
+                    } else if (secondData.daily[i].weather[0].id < 505){
+                        var pc = "🌧️"; // 🌧️ SHOWER RAIN
+                    } else if (secondData.daily[i].weather[0].id < 512){
+                        var pc = "❄️"; // ❄️ SNOW
+                    } else if (secondData.daily[i].weather[0].id < 532){
+                        var pc = "🌨️"; // 🌨️ RAIN
+                    } else if (secondData.daily[i].weather[0].id < 623){
+                        var pc = "❄️"; // SNOW
+                    } else if (secondData.daily[i].weather[0].id < 782){
+                        var pc = "🌫️"; // 🌫️ MIST
+                    } else if (secondData.daily[i].weather[0].id == 800){
+                        var pc = "🌞"; // 🌞 CLEAR
+                    } else if (secondData.daily[i].weather[0].id == 801){
+                        var pc = "🌤️"; // 🌤️FEW CLOUDS
+                    } else if (secondData.daily[i].weather[0].id == 802){
+                        var pc = "🌤️"; // 🌤️SCATTERED CLOUDS
+                    } else if (secondData.daily[i].weather[0].id == 803){
+                        var pc = "🌥️"; // 🌥️BROKEN CLOUDS
+                    } else {
+                        var pc = "🌥️"; // 🌥️OVERCAST CLOUDS
+                    }
 
-document.querySelector(`.tempIdDay${i}`).append(pc)
+                    document.querySelector(`.tempIdDay${i}`).append(pc)
 
 // TODO WEATHER ICON --------------------------------------------------------
+
+                    document.querySelector(`.windIdDay${i}`).innerText = `Wind: ${secondData.daily[i].wind_speed} MPH`
+
                     document.querySelector(`.humidityIdDay${i}`).innerText = `Humidity: ${secondData.daily[i].humidity}`
                     // console.log(`.humidityIdDay${i}: ${secondData.daily[i].uvi}`)
-                    document.querySelector(`.uvIndexID${i}`).innerText = `UVI: ${secondData.daily[i].uvi}`
-                    // console.log(secondData)
+                    document.querySelector(`.uvIndexID${i}`).innerText = `UVI: `
 
-                    // console.log(secondData.daily[1].temp.day)
+                    var uviColor = document.createElement('a');
+                    uviColor.innerText = secondData.daily[i].uvi
+                    if (secondData.daily[i].uvi <= 6){
+                        uviColor.className = `p-1 bg-success text-white`
+                    } else if (secondData.daily[i].uvi <= 8){
+                        uviColor.className = `p-1 bg-warning text-white`
+                    } else {
+                        uviColor.className = `p-1 bg-danger text-white`
+                    }
+
+                    document.querySelector(`.uvIndexID${i}`).append(uviColor)
                 }
-
             }
 
 // TODO: create a function to add API info to the text located in the created section/p elements: temp, humidity, UVI, etc.

@@ -1,5 +1,44 @@
 # 06 Server-Side APIs: Weather Dashboard
 
+# The Task
+
+The task for this homework was to create a weather dashboard that allows the user to search for the weather forecast of any city. When the city is selected, the current weather and a 5 day forecast is displayed. Within the forecast is the city name, date, weather icon, humidity, wind speed and UVI. When the city is selected, a button is created and that contains the city name, and if selected, will re-load the city's forecast. The background color of the UVI information will change based on the value of the UVI.
+
+
+## Acceptance Criteria
+
+```
+GIVEN a weather dashboard with form inputs
+    WHEN I search for a city
+        THEN I am presented with current and future conditions for that city and that city is added to the search history
+    WHEN I view current weather conditions for that city
+        THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
+    WHEN I view the UV index
+        THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
+    WHEN I view future weather conditions for that city
+        THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+    WHEN I click on a city in the search history
+        THEN I am again presented with current and future conditions for that city
+```
+
+Once the changes to the code were implemented, everything needed to be uploaded to a Github Repository
+
+    * Repository contains:
+    *       quality README file with description,
+    *       screenshot, and
+    *       link to deployed application.
+
+![WeatherDashboard0](./Assets/WebDashboard0.PNG)
+![WeatherDashboard1](./Assets/WebDashboard1.PNG)
+![WeatherDashboard2](./Assets/WebDashboard2.PNG)
+![WeatherDashboard2](./Assets/WebDashboard3.PNG)
+
+Website: https://d-loot.github.io/W06-WeatherDashboard/
+
+Github: https://github.com/D-Loot/W06-WeatherDashboard
+
+# Background Information
+
 ## Your Task
 
 Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Your challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
@@ -38,7 +77,7 @@ The following image shows the web application's appearance and functionality:
 
 ## Grading Requirements
 
-This homework is graded based on the following criteria: 
+This homework is graded based on the following criteria:
 
 ### Technical Acceptance Criteria: 40%
 
